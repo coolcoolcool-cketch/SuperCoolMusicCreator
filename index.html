@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SuperCoolMusicCreator</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0b0f;
+            color: white;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 50px;
+
+            background: rgba(10, 10, 15, 0.92);
+            border-bottom: 1px solid #252530;
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #6c8cff;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        .hero {
+            min-height: 700px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 80px 20px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 30%,
+                    #20284c 0%,
+                    #0b0b0f 55%
+                );
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 8px 15px;
+
+            border: 1px solid #333a60;
+            border-radius: 30px;
+
+            color: #9eafff;
+            background: #14182a;
+
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: clamp(50px, 8vw, 90px);
+            margin: 0;
+
+            letter-spacing: -4px;
+        }
+
+        h1 span {
+            color: #6c8cff;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            margin: 25px auto;
+
+            color: #a8a8b5;
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+
+            margin-top: 35px;
+
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-block;
+
+            padding: 15px 25px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s,
+                background 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+        }
+
+        .download {
+            color: white;
+            background: #5875ff;
+
+            box-shadow:
+                0 10px 30px rgba(88, 117, 255, 0.25);
+        }
+
+        .download:hover {
+            background: #6d87ff;
+
+            box-shadow:
+                0 15px 40px rgba(88, 117, 255, 0.4);
+        }
+
+        .github {
+            color: white;
+            background: #202027;
+            border: 1px solid #363640;
+        }
+
+        section {
+            max-width: 1150px;
+
+            margin: auto;
+
+            padding: 100px 25px;
+        }
+
+        .section-title {
+            text-align: center;
+
+            font-size: 40px;
+
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            text-align: center;
+
+            max-width: 650px;
+
+            margin: 0 auto 50px;
+
+            color: #9999a6;
+
+            line-height: 1.6;
+        }
+
+        .features {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(230px, 1fr)
+                );
+
+            gap: 20px;
+        }
+
+        .card {
+            padding: 30px;
+
+            background: #121218;
+
+            border: 1px solid #24242d;
+
+            border-radius: 16px;
+
+            transition:
+                transform 0.2s,
+                border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #49578d;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 20px;
+
+            border-radius: 12px;
+
+            background: #1c2340;
+
+            font-size: 25px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .card p {
+            color: #92929d;
+            line-height: 1.6;
+        }
+
+        .showcase {
+            padding: 0;
+
+            margin-top: 40px;
+
+            min-height: 420px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #161a2c,
+                    #101015
+                );
+
+            border: 1px solid #292d42;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+        .fake-editor {
+            width: 90%;
+            height: 340px;
+
+            background: #0d0d12;
+
+            border: 1px solid #333340;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.5);
+
+            overflow: hidden;
+        }
+
+        .editor-top {
+            height: 40px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 15px;
+
+            background: #181820;
+
+            border-bottom: 1px solid #292932;
+
+            color: #aaa;
+
+            font-size: 13px;
+        }
+
+        .editor-content {
+            display: grid;
+
+            grid-template-columns: 180px 1fr;
+
+            height: calc(100% - 40px);
+        }
+
+        .editor-sidebar {
+            background: #111116;
+
+            border-right: 1px solid #282830;
+
+            padding: 15px;
+        }
+
+        .editor-sidebar div {
+            padding: 9px;
+
+            margin-bottom: 6px;
+
+            border-radius: 6px;
+
+            background: #191920;
+
+            color: #aaa;
+
+            font-size: 12px;
+        }
+
+        .editor-sidebar div.active {
+            background: #28345e;
+            color: white;
+        }
+
+        .piano {
+            position: relative;
+
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    #19191f 0px,
+                    #19191f 20px,
+                    #111116 21px,
+                    #111116 22px
+                );
+
+            overflow: hidden;
+        }
+
+        .note {
+            position: absolute;
+
+            height: 18px;
+
+            border-radius: 4px;
+
+            background: #5875ff;
+
+            box-shadow:
+                0 0 12px rgba(88,117,255,0.4);
+        }
+
+        .note.n1 {
+            left: 8%;
+            top: 30%;
+            width: 90px;
+        }
+
+        .note.n2 {
+            left: 25%;
+            top: 45%;
+            width: 130px;
+        }
+
+        .note.n3 {
+            left: 48%;
+            top: 25%;
+            width: 75px;
+        }
+
+        .note.n4 {
+            left: 63%;
+            top: 55%;
+            width: 150px;
+        }
+
+        .note.n5 {
+            left: 80%;
+            top: 35%;
+            width: 80px;
+        }
+
+        .formats {
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-top: 30px;
+        }
+
+        .format {
+            padding: 10px 18px;
+
+            border-radius: 8px;
+
+            background: #17171e;
+
+            border: 1px solid #2b2b35;
+
+            color: #bbb;
+        }
+
+        .download-section {
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #1b2342,
+                    #0b0b0f 65%
+                );
+
+            max-width: none;
+
+            border-top: 1px solid #20202a;
+            border-bottom: 1px solid #20202a;
+        }
+
+        .download-section .inner {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .download-section h2 {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .download-section p {
+            color: #9999a6;
+            line-height: 1.6;
+            margin-bottom: 35px;
+        }
+
+        .version {
+            margin-top: 20px;
+
+            color: #666675;
+
+            font-size: 13px;
+        }
+
+        footer {
+            padding: 35px 20px;
+
+            text-align: center;
+
+            color: #666675;
+
+            background: #08080b;
+        }
+
+        footer strong {
+            color: #9292a0;
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 0 20px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                min-height: 600px;
+            }
+
+            .editor-content {
+                grid-template-columns: 110px 1fr;
+            }
+
+            .fake-editor {
+                width: 95%;
+            }
+
+            section {
+                padding: 70px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        SuperCool<span>MusicCreator</span>
+    </div>
+
+    <nav>
+        <a href="#features">Возможности</a>
+        <a href="#editor">Интерфейс</a>
+        <a href="#download">Скачать</a>
+    </nav>
+
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                🎵 Free Music Creator
+            </div>
+
+            <h1>
+                SuperCool<span>MusicCreator</span>
+            </h1>
+
+            <p>
+                Создавай музыку с Piano Roll,
+                Sections и Playlist.
+                Собирай треки, используй SoundFont
+                и экспортируй готовую музыку.
+            </p>
+
+            <div class="buttons">
+
+                <a
+                    class="button download"
+                    href="supercoolmusiccreator.zip"
+                    download
+                >
+                    ⬇ Скачать SuperCoolMusicCreator
+                </a>
+
+                <a
+                    class="button github"
+                    href="#features"
+                >
+                    Узнать больше
+                </a>
+
+            </div>
+
+            <div class="version">
+                Version 0.5
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section id="features">
+
+        <h2 class="section-title">
+            Возможности
+        </h2>
+
+        <p class="section-description">
+            Всё необходимое для создания простых
+            музыкальных проектов в одном приложении.
+        </p>
+
+
+        <div class="features">
+
+            <div class="card">
+
+                <div class="icon">
+                    🎹
+                </div>
+
+                <h3>
+                    Piano Roll
+                </h3>
+
+                <p>
+                    Создавай MIDI-ноты прямо
+                    в Piano Roll и собирай
+                    собственные мелодии.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">
+                    🎛️
+                </div>
+
+                <h3>
+                    SoundFont
+                </h3>
+
+                <p>
+                    Используй SoundFont
+                    инструменты для воспроизведения
+                    MIDI-нот через FluidSynth.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">
+                    🧩
+                </div>
+
+                <h3>
+                    Sections
+                </h3>
+
+                <p>
+                    Создавай отдельные музыкальные
+                    секции и используй их
+                    многократно.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">
+                    🎼
+                </div>
+
+                <h3>
+                    Playlist
+                </h3>
+
+                <p>
+                    Собирай Sections в полноценную
+                    композицию и меняй порядок
+                    частей трека.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">
+                    🔊
+                </div>
+
+                <h3>
+                    Audio Files
+                </h3>
+
+                <p>
+                    Добавляй аудиофайлы
+                    непосредственно в Sections.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">
+                    💾
+                </div>
+
+                <h3>
+                    Project Files
+                </h3>
+
+                <p>
+                    Сохраняй проекты в формате
+                    SuperCoolMusicCreator и
+                    открывай их позже.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EDITOR -->
+
+    <section id="editor">
+
+        <h2 class="section-title">
+            Музыкальный редактор
+        </h2>
+
+        <p class="section-description">
+            Интерфейс построен вокруг Sections,
+            Piano Roll и Playlist.
+        </p>
+
+
+        <div class="showcase">
+
+            <div class="fake-editor">
+
+                <div class="editor-top">
+                    SuperCoolMusicCreator — Piano Roll
+                </div>
+
+                <div class="editor-content">
+
+                    <div class="editor-sidebar">
+
+                        <div class="active">
+                            Section 1
+                        </div>
+
+                        <div>
+                            Section 2
+                        </div>
+
+                        <div>
+                            Section 3
+                        </div>
+
+                        <div>
+                            Section 4
+                        </div>
+
+                    </div>
+
+                    <div class="piano">
+
+                        <div class="note n1"></div>
+                        <div class="note n2"></div>
+                        <div class="note n3"></div>
+                        <div class="note n4"></div>
+                        <div class="note n5"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EXPORT -->
+
+    <section>
+
+        <h2 class="section-title">
+            Экспорт
+        </h2>
+
+        <p class="section-description">
+            Готовый проект можно экспортировать
+            в несколько популярных форматов.
+        </p>
+
+        <div class="formats">
+
+            <div class="format">
+                WAV
+            </div>
+
+            <div class="format">
+                MP3
+            </div>
+
+            <div class="format">
+                OGG
+            </div>
+
+            <div class="format">
+                FLAC
+            </div>
+
+            <div class="format">
+                MIDI
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DOWNLOAD -->
+
+    <section
+        id="download"
+        class="download-section"
+    >
+
+        <div class="inner">
+
+            <h2>
+                Готов создавать музыку?
+            </h2>
+
+            <p>
+                Скачай SuperCoolMusicCreator
+                и начни создавать собственные треки.
+            </p>
+
+            <a
+                class="button download"
+                href="supercoolmusiccreator.zip"
+                download
+            >
+                ⬇ Скачать ZIP
+            </a>
+
+            <div class="version">
+                supercoolmusiccreator.zip
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <strong>
+        SuperCoolMusicCreator
+    </strong>
+
+    <br><br>
+
+    Made with SuperCoolMusicCreator
+
+    <br>
+
+    © 2026
+
+</footer>
+
+
+<script>
+
+    // Плавное появление карточек
+
+    const cards =
+        document.querySelectorAll(".card");
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(
+                    entry => {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.style.opacity = "1";
+                            entry.target.style.transform = "translateY(0)";
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold: 0.15
+            }
+        );
+
+
+    cards.forEach(
+        card => {
+
+            card.style.opacity = "0";
+            card.style.transform = "translateY(20px)";
+            card.style.transition =
+                "opacity .5s ease, transform .5s ease";
+
+            observer.observe(card);
+
+        }
+    );
+
+
+    // Маленькая проверка ZIP
+
+    document
+        .querySelectorAll(
+            'a[href="supercoolmusiccreator.zip"]'
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        console.log(
+                            "Downloading SuperCoolMusicCreator..."
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+</script>
+
+</body>
+</html>
